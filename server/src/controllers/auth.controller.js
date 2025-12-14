@@ -170,7 +170,7 @@ exports.logoutUser = async (req, res, next) => {
 
 exports.refreshToken = async(req,res,next)=>{
   try {
-    const refreshToken = res.cookies?.refreshToken;
+    const refreshToken = req.cookies?.refreshToken;
 
     if(!refreshToken){
       return next(new AppError(ERR.AUTH_REQUIRED,"Refresh Token Missing",401));
