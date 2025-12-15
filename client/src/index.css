@@ -2,11 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  color-scheme: dark;
+
+html,
+body,
+#root {
+  height: 100%;
+  background-color: #09090b;
+  color: #22c55e;
+  font-family: "JetBrains Mono", monospace;
 }
 
 
-body {
-  @apply bg-zinc-950 text-green-500 font-mono;
+::selection {
+  background: rgba(34, 197, 94, 0.25);
+  color: #22c55e;
+}
+
+@keyframes grid-drift {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 80px 80px;
+  }
+}
+
+input {
+  caret-color: #22c55e;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #09090b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(34, 197, 94, 0.3);
 }
