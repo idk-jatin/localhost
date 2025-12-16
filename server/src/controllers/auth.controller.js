@@ -97,9 +97,11 @@ exports.loginUser = async (req, res, next) => {
         new AppError(ERR.INVALID_CREDENTIALS, "Invalid email or password", 400)
       );
     }
+  
 
     const valid = await argon2.verify(user.passwordHash, password);
 
+    
     // Checking credentials
     if (!valid) {
       return next(
@@ -195,16 +197,12 @@ exports.refreshToken = async(req,res,next)=>{
       return next(new AppError(ERR.AUTH_REQUIRED,"Invalid refresh token",401))
     }
 
-    // Assigning new refresh and access token
+    // Assigning new access token
     const newAccessToken = signAccessToken(user._id);
-    const newRefreshToken = signRefreshToken(user._id);
 
-    user.hashedRefreshToken = await hashToken(newRefreshToken);
-    await user.save()
+    setAuthCookies(res,{accessToken:newAccessToken,refreshToken});
 
-    setAuthCookies(res,{accessToken:newAccessToken,refreshToken:newRefreshToken});
-
-    return res.json({ok:true,data:{message:"Token refreshed"}});
+    return res.json({ok:true,data:{message:"Access token refreshed"}});
 
   } catch (err) {
     next(err);
@@ -215,6 +213,7 @@ exports.refreshToken = async(req,res,next)=>{
 exports.getMe = async(req,res,next)=>{
   try {
     // User is already attached by verifyAcess middleware
+    res.setHeader("Cache-Control", "no-store");
     return res.json({ok:true,
       data:{
         user:{

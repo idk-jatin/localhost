@@ -65,7 +65,7 @@ export default function LogPanel({
             key={`${entry.time}-${index}`}
             className={clsx(
               `
-              flex items-start gap-2
+              flex items-start gap-1
               py-0.5 px-1
               `,
               LEVEL_COLORS[entry.level]
@@ -75,7 +75,7 @@ export default function LogPanel({
             <span className="opacity-60 shrink-0 tabular-nums">
               [{formatTime(entry.time)}]
             </span>
-
+            {"~$"}
             <span className="whitespace-pre-wrap break-words">
               {entry.message}
             </span>

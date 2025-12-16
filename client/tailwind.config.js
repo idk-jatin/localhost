@@ -24,6 +24,7 @@ export default {
       animation: {
         blink: "blink 1s steps(1) infinite",
         pulseSlow: "pulseSlow 4s linear infinite",
+         terminalPulse: "terminalPulse 0.6s ease-out",
       },
 
       keyframes: {
@@ -41,6 +42,7 @@ export default {
         terminalSoft: "0 0 4px rgba(34,197,94,0.18)",
         terminalFocus: "0 0 6px rgba(34,197,94,0.35)",
         terminalPulse: "0 0 10px rgba(34,197,94,0.5)",
+        terminalError: "0 0 6px rgb(239, 68, 68,0.35)"
       },
 
       borderWidth: {

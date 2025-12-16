@@ -18,6 +18,13 @@ body,
   color: #22c55e;
 }
 
+@keyframes terminalPulse {
+  0% { box-shadow: 0 0 0 transparent; }
+  50% { box-shadow: 0 0 8px currentColor; }
+  100% { box-shadow: 0 0 0 transparent; }
+}
+
+
 @keyframes grid-drift {
   0% {
     background-position: 0 0;

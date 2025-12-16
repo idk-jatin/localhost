@@ -1,17 +1,18 @@
-import { useRef, useState } from "react";
+import { forwardRef, useState } from "react";
 import clsx from "clsx";
 
-export default function TerminalInput({
-  value,
-  onChange,
-  onKeyDown,
-  prompt = ">",
-  type = "text",
-  disabled = false,
-  autoFocus = false,
-  className,
-}) {
-  const inputRef = useRef(null);
+const TerminalInput = forwardRef(function TerminalInput(
+  {
+    prompt = ">",
+    type = "text",
+    disabled = false,
+    autoFocus = false,
+    className,
+    error,
+    ...rest
+  },
+  ref
+) {
   const [focused, setFocused] = useState(false);
 
   return (
@@ -21,29 +22,22 @@ export default function TerminalInput({
         disabled && "opacity-50 cursor-not-allowed",
         className
       )}
-      onClick={() => inputRef.current?.focus()}
     >
-      {/* Input Title */}
-      <span className="text-terminal select-none min-w-[4.2rem]">{prompt}</span>
+      <span className="text-terminal select-none min-w-[4.2rem]" >{prompt}</span>
       {">"}
-      {/* Input box */}
       <div
         className={clsx(
           `
           flex-1
           px-2 py-1
           bg-bg
-          border border-borderGreen
-          `,
-          focused && "shadow-terminalFocus"
+          border`,error? "border-error":"border-borderGreen",
+          focused && (error? "shadow-terminalError": "shadow-terminalFocus")
         )}
       >
         <input
-          ref={inputRef}
+          ref={ref}
           type={type}
-          value={value}
-          onChange={onChange}
-          onKeyDown={onKeyDown}
           disabled={disabled}
           autoFocus={autoFocus}
           onFocus={() => setFocused(true)}
@@ -56,8 +50,11 @@ export default function TerminalInput({
             text-terminal
             caret-terminal
           "
+          {...rest}
         />
       </div>
     </div>
   );
-}
+});
+
+export default TerminalInput;
